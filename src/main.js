@@ -4,10 +4,47 @@ const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const ffmpeg = require('./ffmpeg');
+const pack = require('./pack');
 
 const AUDIO_EXTENSIONS = ['wav', 'mp3', 'ogg', 'flac', 'm4a', 'aac', 'opus'];
 const VIDEO_EXTENSIONS = ['ogv', 'mp4', 'mkv', 'webm', 'mov', 'avi'];
-const MEDIA_EXTENSIONS = [...AUDIO_EXTENSIONS, ...VIDEO_EXTENSIONS];
+
+const extOf = (n) => path.extname(n).slice(1).toLowerCase();
+
+// Replace folders with the files the app can use from them; files are kept as they are.
+// - "scene": the scene pack (video, plus the line .txt files with start times). Its own
+//   voice lines and backing track are not voice clips, so audio is never taken from it.
+// - "recordings": the voice clips. If the folder has "_dubrecord_" files, only those are
+//   taken. Videos and .txt files come along too, since the game may save the video next to
+//   the recordings, or the pack and the recordings may share a folder.
+function expandPaths(paths, kind) {
+  const out = [];
+  for (const p of paths) {
+    let isDir = false;
+    try {
+      isDir = fs.statSync(p).isDirectory();
+    } catch (_) {
+      // missing file: let probe report it
+    }
+    if (!isDir) {
+      out.push(p);
+      continue;
+    }
+    const names = fs.readdirSync(p);
+    let picked;
+    if (kind === 'scene') {
+      picked = names.filter((n) => [...VIDEO_EXTENSIONS, 'txt'].includes(extOf(n)));
+    } else {
+      const audio = names.filter((n) => AUDIO_EXTENSIONS.includes(extOf(n)));
+      const dubs = audio.filter((n) => /^_?dubrecord_/i.test(n));
+      // a pack's own audio is never a recording
+      const clips = dubs.length || pack.isPackDir(p) ? dubs : audio;
+      picked = [...clips, ...names.filter((n) => [...VIDEO_EXTENSIONS, 'txt'].includes(extOf(n)))];
+    }
+    out.push(...picked.map((n) => path.join(p, n)));
+  }
+  return out;
+}
 
 let win;
 let currentJob = null;
@@ -30,39 +67,18 @@ function createWindow() {
   win.loadFile(path.join(__dirname, 'renderer', 'index.html'));
 }
 
-ipcMain.handle('pick-clips', async () => {
+ipcMain.handle('pick-folder', async (_e, kind) => {
   const res = await dialog.showOpenDialog(win, {
-    title: 'Add voice clips',
-    properties: ['openFile', 'multiSelections'],
-    filters: [
-      { name: 'Voice clips', extensions: AUDIO_EXTENSIONS },
-      { name: 'All files', extensions: ['*'] },
-    ],
+    title: kind === 'scene' ? 'Add scene folder (video + times)' : 'Add recordings folder (voice clips)',
+    properties: ['openDirectory'],
   });
-  return res.canceled ? [] : res.filePaths;
+  if (res.canceled || !res.filePaths.length) return null;
+  return expandPaths(res.filePaths, kind);
 });
 
-ipcMain.handle('pick-video', async () => {
-  const res = await dialog.showOpenDialog(win, {
-    title: 'Choose video',
-    properties: ['openFile'],
-    filters: [
-      { name: 'Video', extensions: VIDEO_EXTENSIONS },
-      { name: 'All files', extensions: ['*'] },
-    ],
-  });
-  return res.canceled ? [] : res.filePaths;
-});
+ipcMain.handle('expand-paths', (_e, paths, kind) => expandPaths(paths, kind));
 
-ipcMain.handle('pick-folder', async () => {
-  const res = await dialog.showOpenDialog(win, { title: 'Add folder', properties: ['openDirectory'] });
-  if (res.canceled || !res.filePaths.length) return [];
-  const dir = res.filePaths[0];
-  return fs
-    .readdirSync(dir)
-    .filter((n) => MEDIA_EXTENSIONS.includes(path.extname(n).slice(1).toLowerCase()))
-    .map((n) => path.join(dir, n));
-});
+ipcMain.handle('read-timings', (_e, txtPaths) => pack.readTimings(txtPaths));
 
 ipcMain.handle('pick-output', async (_e, suggestedDir, name) => {
   const res = await dialog.showSaveDialog(win, {
@@ -78,7 +94,10 @@ ipcMain.handle('probe', async (_e, paths) => {
   const results = [];
   for (const p of paths) {
     try {
-      results.push(await ffmpeg.probe(p));
+      const info = await ffmpeg.probe(p);
+      info.lineKey = pack.lineKey(p);
+      if (!info.hasVideo && info.start === null) info.start = pack.startFromSidecar(p);
+      results.push(info);
     } catch (err) {
       results.push({ path: p, name: path.basename(p), error: err.message });
     }

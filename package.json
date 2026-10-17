@@ -1,7 +1,7 @@
 {
   "name": "choicer-voicer-video-maker",
   "productName": "Choicer Voicer Video Maker",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Replace the audio of a Choicer Voicer dub video (.ogv) with the recorded voice clips (.wav) and save it as MP4.",
   "main": "src/main.js",
   "author": "Marko Barchanski",

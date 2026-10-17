@@ -1,0 +1,92 @@
+.rw-rw-rw- 619k bejbula 24 sie 22:11  _dubrecord_01_Lois.wav
+.rw-rw-rw- 877k bejbula 24 sie 22:11  _dubrecord_02_Lois.wav
+.rw-rw-rw- 328k bejbula 24 sie 22:11  _dubrecord_201_Peter.wav
+.rw-rw-rw- 885k bejbula 24 sie 22:11  _dubrecord_202_Peter.wav
+.rw-rw-rw- 700k bejbula 24 sie 22:11  _dubrecord_203_Peter.wav
+.rw-rw-rw- 1,3M bejbula 24 sie 22:11  _dubrecord_301_Stewie.wav
+.rw-rw-rw- 377k bejbula 24 sie 22:11  _dubrecord_302_Stewie.wav
+.rw-rw-rw- 424k bejbula 24 sie 22:11  _dubrecord_303_Stewie.wav
+.rw-rw-rw- 932k bejbula 24 sie 22:11  _dubrecord_304_Stewie.wav
+.rw-rw-rw- 1,1M bejbula 24 sie 22:11  _dubrecord_401_Brian.wav
+----------------------------------------------------------
+.rw-rw-rw- 1,1M bejbula 17 paź 17:00  _dubrecord_01_Hamshow_00-000.wav
+.rw-rw-rw- 207k bejbula 17 paź 17:00  _dubrecord_02_Hamshow_05-662.wav
+.rw-rw-rw- 1,0M bejbula 17 paź 17:00  _dubrecord_03_Hamshow_06-538.wav
+.rw-rw-rw- 148k bejbula 17 paź 17:00  _dubrecord_04_Hamshow_11-959.wav
+.rw-rw-rw- 948k bejbula 17 paź 17:00  _dubrecord_05_Hamshow_12-738.wav
+.rw-rw-rw- 387k bejbula 17 paź 17:00  _dubrecord_06_Hamshow_17-684.wav
+.rw-rw-rw- 676k bejbula 17 paź 17:00  _dubrecord_07_Hamshow_19-714.wav
+.rw-rw-rw- 1,3M bejbula 17 paź 17:00  _dubrecord_08_Hamshow_23-132.wav
+.rw-rw-rw- 703k bejbula 17 paź 17:00  _dubrecord_09_Hamshow_30-034.wav
+.rw-rw-rw- 250k bejbula 17 paź 17:00  _dubrecord_10_Hamshow_33-701.wav
+.rw-rw-rw- 1,0M bejbula 17 paź 17:00  _dubrecord_11_Hamshow_35-014.wav
+.rw-rw-rw- 641k bejbula 17 paź 17:00  _dubrecord_12_Hamshow_40-530.wav
+.rw-rw-rw- 315k bejbula 17 paź 17:00  _dubrecord_13_Hamshow_43-888.wav
+-----------------------------------------------------------
+.rw-rw-rw- 645k bejbula 17 paź 17:11  _dubrecord_001_CHARACTER.wav
+.rw-rw-rw- 320k bejbula 17 paź 17:11  _dubrecord_002_CHARACTER.wav
+.rw-rw-rw- 598k bejbula 17 paź 17:11  _dubrecord_003_CHARACTER.wav
+.rw-rw-rw- 207k bejbula 17 paź 17:11  _dubrecord_004_CHARACTER.wav
+.rw-rw-rw- 342k bejbula 17 paź 17:11  _dubrecord_005_CHARACTER.wav
+.rw-rw-rw- 430k bejbula 17 paź 17:11  _dubrecord_006_CHARACTER.wav
+.rw-rw-rw- 356k bejbula 17 paź 17:11  _dubrecord_007_CHARACTER.wav
+.rw-rw-rw- 735k bejbula 17 paź 17:11  _dubrecord_008_CHARACTER.wav
+.rw-rw-rw- 494k bejbula 17 paź 17:11  _dubrecord_009_CHARACTER.wav
+.rw-rw-rw- 688k bejbula 17 paź 17:11  _dubrecord_010_CHARACTER.wav
+.rw-rw-rw- 598k bejbula 17 paź 17:11  _dubrecord_011_CHARACTER.wav
+.rw-rw-rw- 272k bejbula 17 paź 17:11  _dubrecord_012_CHARACTER.wav
+.rw-rw-rw- 846k bejbula 17 paź 17:11  _dubrecord_013_CHARACTER.wav
+.rw-rw-rw- 573k bejbula 17 paź 17:11  _dubrecord_014_CHARACTER.wav
+.rw-rw-rw- 1,0M bejbula 17 paź 17:11  _dubrecord_015_CHARACTER.wav
+.rw-rw-rw- 461k bejbula 17 paź 17:11  _dubrecord_016_CHARACTER.wav
+.rw-rw-rw- 326k bejbula 17 paź 17:11  _dubrecord_017_CHARACTER.wav
+.rw-rw-rw- 356k bejbula 17 paź 17:11  _dubrecord_018_CHARACTER.wav
+.rw-rw-rw- 438k bejbula 17 paź 17:11  _dubrecord_019_CHARACTER.wav
+.rw-rw-rw- 463k bejbula 17 paź 17:11  _dubrecord_020_CHARACTER.wav
+.rw-rw-rw- 789k bejbula 17 paź 17:11  _dubrecord_021_CHARACTER.wav
+.rw-rw-rw- 465k bejbula 17 paź 17:11  _dubrecord_022_CHARACTER.wav
+.rw-rw-rw- 705k bejbula 17 paź 17:11  _dubrecord_023_CHARACTER.wav
+.rw-rw-rw- 317k bejbula 17 paź 17:11  _dubrecord_024_CHARACTER.wav
+.rw-rw-rw- 408k bejbula 17 paź 17:11  _dubrecord_025_CHARACTER.wav
+.rw-rw-rw- 535k bejbula 17 paź 17:11  _dubrecord_026_CHARACTER.wav
+.rw-rw-rw- 326k bejbula 17 paź 17:11  _dubrecord_027_CHARACTER.wav
+.rw-rw-rw- 369k bejbula 17 paź 17:11  _dubrecord_028_CHARACTER.wav
+.rw-rw-rw- 559k bejbula 17 paź 17:11  _dubrecord_029_CHARACTER.wav
+.rw-rw-rw- 518k bejbula 17 paź 17:11  _dubrecord_030_CHARACTER.wav
+.rw-rw-rw- 277k bejbula 17 paź 17:11  _dubrecord_031_CHARACTER.wav
+.rw-rw-rw- 909k bejbula 17 paź 17:11  _dubrecord_032_CHARACTER.wav
+.rw-rw-rw- 774k bejbula 17 paź 17:11  _dubrecord_033_CHARACTER.wav
+.rw-rw-rw- 428k bejbula 17 paź 17:11  _dubrecord_034_CHARACTER.wav
+.rw-rw-rw- 279k bejbula 17 paź 17:11  _dubrecord_035_CHARACTER.wav
+.rw-rw-rw- 356k bejbula 17 paź 17:11  _dubrecord_036_CHARACTER.wav
+.rw-rw-rw- 379k bejbula 17 paź 17:11  _dubrecord_037_CHARACTER.wav
+.rw-rw-rw- 350k bejbula 17 paź 17:11  _dubrecord_038_CHARACTER.wav
+.rw-rw-rw- 672k bejbula 17 paź 17:11  _dubrecord_039_CHARACTER.wav
+.rw-rw-rw- 754k bejbula 17 paź 17:11  _dubrecord_040_CHARACTER.wav
+.rw-rw-rw- 510k bejbula 17 paź 17:11  _dubrecord_041_CHARACTER.wav
+.rw-rw-rw- 743k bejbula 17 paź 17:11  _dubrecord_042_CHARACTER.wav
+------------------------------------------------------------------
+.rw-rw-rw- 320k bejbula 17 paź 17:23  _dubrecord_01_WrestlingPromoter6.263.wav
+.rw-rw-rw- 621k bejbula 17 paź 17:23  _dubrecord_02_Peter9.389.wav
+.rw-rw-rw- 428k bejbula 17 paź 17:23  _dubrecord_03_WrestlingPromoter12.628.wav
+.rw-rw-rw- 1,4M bejbula 17 paź 17:23  _dubrecord_04_WrestlingPromoter15.267.wav
+.rw-rw-rw- 320k bejbula 17 paź 17:23  _dubrecord_05_Peter22.872.wav
+.rw-rw-rw- 533k bejbula 17 paź 17:23  _dubrecord_06_WrestlingPromoter24.555.wav
+.rw-rw-rw- 297k bejbula 17 paź 17:23  _dubrecord_07_WrestlingPromoter36.024.wav
+.rw-rw-rw- 330k bejbula 17 paź 17:23  '_dubrecord_08_Dennis Carradine37.596.wav'
+.rw-rw-rw- 283k bejbula 17 paź 17:23  '_dubrecord_09_Dennis Carradine40.740.wav'
+.rw-rw-rw- 313k bejbula 17 paź 17:23  '_dubrecord_10_Dennis Carradine44.379.wav'
+.rw-rw-rw- 102k bejbula 17 paź 17:23  '_dubrecord_11_Wrestling Promoter45.276.wav'
+.rw-rw-rw- 184k bejbula 17 paź 17:23  '_dubrecord_12_Dennis Carradine45.262.wav'
+.rw-rw-rw- 162k bejbula 17 paź 17:23  '_dubrecord_13_Dennis Carradine47.798.wav'
+.rw-rw-rw- 473k bejbula 17 paź 17:23  _dubrecord_14_WrestlingPromoter48.906.wav
+.rw-rw-rw- 264k bejbula 17 paź 17:23  _dubrecord_15_officer51.303.wav
+.rw-rw-rw- 100k bejbula 17 paź 17:23  '_dubrecord_16_Dennis Carradine52.630.wav'
+.rw-rw-rw- 219k bejbula 17 paź 17:23  '_dubrecord_17_Dennis Carradine53.170.wav'
+.rw-rw-rw- 279k bejbula 17 paź 17:23  '_dubrecord_18_Wrestling Promoter54.306.wav'
+.rw-rw-rw- 148k bejbula 17 paź 17:23  '_dubrecord_19_Dennis Carradine56.158.wav'
+.rw-rw-rw- 434k bejbula 17 paź 17:23  _dubrecord_20_Officer58.728.wav
+.rw-rw-rw- 422k bejbula 17 paź 17:23  _dubrecord_21_Officer61.297.wav
+.rw-rw-rw- 809k bejbula 17 paź 17:23  _dubrecord_22_WrestlingPromoter63.526.wav
+.rw-rw-rw- 371k bejbula 17 paź 17:23  _dubrecord_23_Peter67.814.wav
+----------------------------------------------------------------

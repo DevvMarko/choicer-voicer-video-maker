@@ -10,7 +10,6 @@
   <header>
     <h1>Choicer Voicer Video Maker</h1>
     <div class="actions">
-      <button id="add-folder" title="Add the video and all voice clips from a folder">Add folder…</button>
       <button id="clear" class="ghost">Clear all</button>
     </div>
   </header>
@@ -19,12 +18,12 @@
     <div class="inputs">
       <section id="video-drop" class="drop video-drop">
         <div class="section-head">
-          <h2><span class="step">1</span> Video <small class="muted">(.ogv, its original audio is removed)</small></h2>
-          <button id="pick-video" class="small">Choose video…</button>
+          <h2><span class="step">1</span> Scene <small class="muted">(video + line times; the original audio is removed)</small></h2>
+          <button id="pick-scene" class="small" title="The scene pack folder, with _pack_info.ini and dub_video.ogv">Add scene folder…</button>
         </div>
         <div id="video-empty" class="empty">
-          <p><strong>Drop the video here</strong></p>
-          <p class="muted">e.g. <code>dub_video.ogv</code></p>
+          <p><strong>Drop the scene folder here</strong></p>
+          <p class="muted">the folder with <code>dub_video.ogv</code> and <code>_pack_info.ini</code></p>
         </div>
         <div id="video-info" class="video-info" hidden>
           <div class="video-name" id="video-name"></div>
@@ -35,12 +34,12 @@
 
       <section id="clips-drop" class="drop clips-drop">
         <div class="section-head">
-          <h2><span class="step">2</span> Voice clips <small class="muted">(.wav, placed at the time in their file name)</small></h2>
-          <button id="pick-clips" class="small">Add clips…</button>
+          <h2><span class="step">2</span> Voice clips <small class="muted">(placed at the time in their file name or the scene)</small></h2>
+          <button id="pick-recordings" class="small" title="The folder with your _dubrecord_*.wav files">Add recordings folder…</button>
         </div>
         <div id="clips-empty" class="empty">
-          <p><strong>Drop the voice clips here</strong></p>
-          <p class="muted">e.g. <code>_dubrecord_01_Hamshow_00-000.wav</code></p>
+          <p><strong>Drop the recordings folder here</strong></p>
+          <p class="muted">the folder with your <code>_dubrecord_*.wav</code> files</p>
         </div>
         <div class="table-wrap">
           <table id="table" hidden>

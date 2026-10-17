@@ -5,6 +5,8 @@ const $ = (id) => document.getElementById(id);
 const state = {
   video: null,
   clips: [],
+  // start times from scene pack .txt files, by line name ("01_lois")
+  timings: {},
   busy: false,
 };
 
@@ -22,14 +24,45 @@ function validClips() {
   return state.clips.filter((c) => !c.error);
 }
 
+// Give clips that have no time in their name the time from the scene pack. Returns how many got one.
+function applyTimings() {
+  let n = 0;
+  for (const c of state.clips) {
+    if (c.error || Number.isFinite(c.start)) continue;
+    const t = state.timings[c.lineKey];
+    if (Number.isFinite(t)) {
+      c.start = t;
+      n++;
+    }
+  }
+  return n;
+}
+
 // Probe the files, then put video files into the video slot and audio files into the clip list.
-async function addPaths(paths) {
+// Scene pack .txt files are read for start times instead. Folders are expanded by kind
+// ("scene" or "recordings"); paths from the folder pickers are already expanded.
+async function addPaths(paths, kind) {
+  const given = new Set(paths);
+  if (kind) paths = await window.api.expandPaths(paths, kind);
+  // a video found in a recordings folder only fills an empty video slot
+  if (kind === 'recordings' && state.video) {
+    paths = paths.filter((p) => given.has(p) || !/\.(ogv|mp4|mkv|webm|mov|avi)$/i.test(p));
+  }
+  const isTxt = (p) => p.toLowerCase().endsWith('.txt');
   const known = new Set(state.clips.map((c) => c.path));
-  const fresh = paths.filter((p) => !known.has(p) && (!state.video || state.video.path !== p));
-  if (!fresh.length) return;
-  setStatus(`Reading ${fresh.length} file(s)…`);
-  const probed = await window.api.probe(fresh);
+  const fresh = paths.filter((p) => !isTxt(p) && !known.has(p) && (!state.video || state.video.path !== p));
+  const txt = paths.filter(isTxt);
+  if (!fresh.length && !txt.length) {
+    if (!paths.length) setStatus('No video, voice clips or line times found there.', 'error');
+    return;
+  }
+  setStatus(`Reading ${fresh.length + txt.length} file(s)…`);
+  const timings = txt.length ? await window.api.readTimings(txt) : {};
+  Object.assign(state.timings, timings);
+  const probed = fresh.length ? await window.api.probe(fresh) : [];
   const messages = [];
+  const lines = Object.keys(timings).length;
+  if (lines) messages.push(`Read start times for ${lines} line(s) from the scene.`);
 
   const videos = probed.filter((f) => !f.error && f.hasVideo);
   if (videos.length) {
@@ -38,6 +71,8 @@ async function addPaths(paths) {
   }
   const clips = probed.filter((f) => f.error || !f.hasVideo);
   state.clips.push(...clips);
+  const timed = applyTimings();
+  if (timed) messages.push(`${timed} clip(s) got their start time from the scene.`);
   state.clips.sort(byStart);
 
   const failed = probed.filter((f) => f.error).length;
@@ -139,7 +174,12 @@ function updateSummary() {
 
   const warnings = [];
   const unset = clips.filter((c) => !Number.isFinite(c.start)).length;
-  if (unset) warnings.push(`${unset} clip(s) have no start time and will start at 0 s.`);
+  if (unset) {
+    warnings.push(
+      `${unset} clip(s) have no start time and will start at 0 s. ` +
+        'Add the scene folder (the one with _pack_info.ini) to read their times, or type them in.'
+    );
+  }
   if (v && clips.length) {
     const end = Math.max(...clips.map((c) => (c.start ?? 0) + c.duration));
     if (end > v.duration + 0.25) {
@@ -163,7 +203,7 @@ function setStatus(text, kind = '') {
 
 function setBusy(busy) {
   state.busy = busy;
-  for (const id of ['add-folder', 'clear', 'pick-video', 'pick-clips', 'compress', 'max-mb']) {
+  for (const id of ['clear', 'pick-scene', 'pick-recordings', 'compress', 'max-mb']) {
     $(id).disabled = busy;
   }
   $('max-mb').disabled = busy || !$('compress').checked;
@@ -216,9 +256,13 @@ window.api.onProgress(({ stage, fraction }) => {
   $('progress-text').textContent = `${stage}… ${Math.round(fraction * 100)}%`;
 });
 
-$('pick-video').addEventListener('click', async () => addPaths(await window.api.pickVideo()));
-$('pick-clips').addEventListener('click', async () => addPaths(await window.api.pickClips()));
-$('add-folder').addEventListener('click', async () => addPaths(await window.api.pickFolder()));
+// pickFolder returns null when the dialog is cancelled
+for (const [id, kind] of [['pick-scene', 'scene'], ['pick-recordings', 'recordings']]) {
+  $(id).addEventListener('click', async () => {
+    const paths = await window.api.pickFolder(kind);
+    if (paths) addPaths(paths);
+  });
+}
 $('video-remove').addEventListener('click', () => {
   state.video = null;
   render();
@@ -226,6 +270,7 @@ $('video-remove').addEventListener('click', () => {
 $('clear').addEventListener('click', () => {
   state.video = null;
   state.clips = [];
+  state.timings = {};
   setStatus('');
   render();
 });
@@ -233,8 +278,9 @@ $('make').addEventListener('click', makeVideo);
 $('cancel').addEventListener('click', () => window.api.cancel());
 $('compress').addEventListener('change', () => ($('max-mb').disabled = !$('compress').checked));
 
-// Drag & drop: both areas accept any mix of files; each file goes where it belongs.
-for (const zone of [$('video-drop'), $('clips-drop')]) {
+// Drag & drop: both areas accept any mix of files, and each file goes where it belongs.
+// A dropped folder is read like the area's button reads it (scene or recordings).
+for (const [zone, kind] of [[$('video-drop'), 'scene'], [$('clips-drop'), 'recordings']]) {
   ['dragenter', 'dragover'].forEach((ev) =>
     zone.addEventListener(ev, (e) => {
       e.preventDefault();
@@ -246,7 +292,7 @@ for (const zone of [$('video-drop'), $('clips-drop')]) {
     e.preventDefault();
     if (state.busy) return;
     const paths = [...e.dataTransfer.files].map((f) => window.api.pathForFile(f)).filter(Boolean);
-    addPaths(paths);
+    addPaths(paths, kind);
   });
 }
 // Prevent the window from navigating to a file dropped outside the drop areas.

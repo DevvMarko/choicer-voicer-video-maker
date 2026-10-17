@@ -25,14 +25,18 @@ function resolveFfmpeg() {
 
 const FFMPEG = resolveFfmpeg();
 
-// Choicer Voicer names dub records like "_dubrecord_03_Hamshow_06-538.wav":
-// the trailing "06-538" is the clip's start time in the scene (seconds-milliseconds).
+// Choicer Voicer ends dub record names with the clip's start time in the scene, in a few styles:
+//   "_dubrecord_03_Hamshow_06-538.wav"          -> 6.538 s (seconds-milliseconds)
+//   "_dubrecord_02_Peter9.389.wav"              -> 9.389 s (glued to the name, dot separator)
+//   "_dubrecord_08_Dennis Carradine37.596.wav"  -> 37.596 s (names can contain spaces)
+// Some scenes save no time at all ("_dubrecord_01_Lois.wav", "_dubrecord_001_CHARACTER.wav").
+// The time always has a fraction part, so a bare number at the end isn't taken as a time.
 // Longer scenes may use "MM-SS-mmm" or "HH-MM-SS-mmm", so groups are read from the right.
 function parseStartFromName(fileName) {
   const base = path.basename(fileName).replace(/\.[^.]+$/, '');
-  const m = base.match(/_(\d+(?:-\d+)+)$/);
+  const m = base.match(/(\d+(?:[-.:]\d+)+)$/);
   if (!m) return null;
-  const parts = m[1].split('-');
+  const parts = m[1].split(/[-.:]/);
   const ms = parts.pop();
   let seconds = Number(`0.${ms}`);
   const multipliers = [1, 60, 3600];

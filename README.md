@@ -16,7 +16,16 @@ _dubrecord_03_Hamshow_06-538.wav
 ```
 
 The last part of each clip's name (`05-662`) is when the line starts in the
-scene: **5.662 seconds**.
+scene: **5.662 seconds**. Some scenes write the time right after the name
+with a dot instead (`_dubrecord_02_Peter9.389.wav`,
+`_dubrecord_08_Dennis Carradine37.596.wav`), and the app reads that too.
+
+Some scenes save no time in the name (`_dubrecord_01_Lois.wav`,
+`_dubrecord_001_CHARACTER.wav`). The time is then in the **scene pack**, the
+folder with `_pack_info.ini` that the scene came in. For each line the pack
+has a `.txt` file, and `01_Lois.txt` contains `dub_timestamps=[3.917]` for the
+recording `_dubrecord_01_Lois.wav`. The app reads these times when you add
+the scene folder. A time in the file name always wins over the pack.
 
 The app:
 
@@ -30,16 +39,21 @@ The app:
 ## Using it
 
 1. Start the app.
-2. Add the files. Any of these works:
-   - **Add folder…**: pick the folder where the game saved the dub. The app
-     finds the video and all the clips on its own.
-   - drag & drop files into the window. Video files go to **1 · Video** and
-     audio files go to **2 · Voice clips**, whichever area you drop them on.
-   - **Choose video…** / **Add clips…** buttons.
-3. Check the list. If you need to, you can change a clip's start time, or
+2. **1 · Scene → Add scene folder…**: pick the scene pack (the folder with
+   `_pack_info.ini` and `dub_video.ogv`). The app takes the video and the
+   line times. It never takes the pack's own voice lines or backing track.
+3. **2 · Voice clips → Add recordings folder…**: pick the folder with your
+   `_dubrecord_*.wav` files. If that folder has `_dubrecord_` files, only
+   those are added. If it also has the video, the video is used when none is
+   set yet.
+
+   You can do steps 2 and 3 in either order. Dragging a folder onto an area
+   works like that area's button. Single files can be dropped too: videos go
+   to the video slot and audio files go to the clip list.
+4. Check the list. If you need to, you can change a clip's start time, or
    remove a clip with ✕.
-4. Optional: tick **Compress to max 20 MB** (you can change the number).
-5. Click **Make video…** (it's enabled once there's a video and at least one
+5. Optional: tick **Compress to max 20 MB** (you can change the number).
+6. Click **Make video…** (it's enabled once there's a video and at least one
    clip), choose where to save, and wait.
 
 The output keeps the video's length. If a clip runs past the end of the video,
@@ -111,8 +125,8 @@ npm install
 npm run dist:win
 ```
 
-This makes an installer (`Choicer Voicer Video Maker Setup 1.1.0.exe`) and a
-portable `Choicer Voicer Video Maker 1.1.0.exe` that runs without installing.
+This makes an installer (`Choicer Voicer Video Maker Setup 1.2.0.exe`) and a
+portable `Choicer Voicer Video Maker 1.2.0.exe` that runs without installing.
 
 **Building for Windows on Linux** also works. First download the Windows ffmpeg
 binary next to the Linux one, then build (you may need Wine):
