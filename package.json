@@ -1,0 +1,63 @@
+{
+  "name": "choicer-voicer-video-maker",
+  "productName": "Choicer Voicer Video Maker",
+  "version": "1.1.0",
+  "description": "Replace the audio of a Choicer Voicer dub video (.ogv) with the recorded voice clips (.wav) and save it as MP4.",
+  "main": "src/main.js",
+  "author": "Marko Barchanski",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "dist:linux": "electron-builder --linux",
+    "dist:win": "electron-builder --win",
+    "ffmpeg:win": "node -e \"process.env.npm_config_platform='win32';process.env.npm_config_arch='x64';require('./node_modules/ffmpeg-static/install.js')\""
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.3.0"
+  },
+  "devDependencies": {
+    "electron": "^44.9.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.choicervoicer.videomaker",
+    "productName": "Choicer Voicer Video Maker",
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "node_modules/ffmpeg-static/**"
+    ],
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "AudioVideo",
+      "files": [
+        "src/**/*",
+        "package.json",
+        "!node_modules/ffmpeg-static/ffmpeg.exe"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "files": [
+        "src/**/*",
+        "package.json",
+        "!node_modules/ffmpeg-static/ffmpeg"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "allowScripts": {
+    "ffmpeg-static": true
+  }
+}

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'">
+  <title>Choicer Voicer Video Maker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Choicer Voicer Video Maker</h1>
+    <div class="actions">
+      <button id="add-folder" title="Add the video and all voice clips from a folder">Add folder…</button>
+      <button id="clear" class="ghost">Clear all</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="inputs">
+      <section id="video-drop" class="drop video-drop">
+        <div class="section-head">
+          <h2><span class="step">1</span> Video <small class="muted">(.ogv, its original audio is removed)</small></h2>
+          <button id="pick-video" class="small">Choose video…</button>
+        </div>
+        <div id="video-empty" class="empty">
+          <p><strong>Drop the video here</strong></p>
+          <p class="muted">e.g. <code>dub_video.ogv</code></p>
+        </div>
+        <div id="video-info" class="video-info" hidden>
+          <div class="video-name" id="video-name"></div>
+          <div class="muted" id="video-meta"></div>
+          <button id="video-remove" class="icon" title="Remove video">✕</button>
+        </div>
+      </section>
+
+      <section id="clips-drop" class="drop clips-drop">
+        <div class="section-head">
+          <h2><span class="step">2</span> Voice clips <small class="muted">(.wav, placed at the time in their file name)</small></h2>
+          <button id="pick-clips" class="small">Add clips…</button>
+        </div>
+        <div id="clips-empty" class="empty">
+          <p><strong>Drop the voice clips here</strong></p>
+          <p class="muted">e.g. <code>_dubrecord_01_Hamshow_00-000.wav</code></p>
+        </div>
+        <div class="table-wrap">
+          <table id="table" hidden>
+            <thead>
+              <tr>
+                <th class="num">#</th>
+                <th>File</th>
+                <th class="time">Start (s)</th>
+                <th class="time">Length</th>
+                <th class="ctl"></th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <aside class="settings">
+      <fieldset>
+        <legend>Output</legend>
+        <label class="check">
+          <input type="checkbox" id="compress">
+          <span>Compress to max
+            <input type="number" id="max-mb" value="20" min="1" max="2000" step="1"> MB
+            <br><small class="muted">Lowers quality only as much as needed. Long videos may also get a smaller resolution.</small>
+          </span>
+        </label>
+      </fieldset>
+
+      <div class="summary" id="summary"></div>
+      <div class="warning" id="warning" hidden></div>
+
+      <button id="make" class="primary" disabled>Make video…</button>
+
+      <div id="progress-wrap" hidden>
+        <progress id="progress" max="1" value="0"></progress>
+        <div class="progress-line">
+          <span id="progress-text">0%</span>
+          <button id="cancel" class="link">Cancel</button>
+        </div>
+      </div>
+
+      <div id="status" class="status" hidden></div>
+    </aside>
+  </main>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
